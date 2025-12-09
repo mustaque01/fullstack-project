@@ -9,6 +9,12 @@ const AdminPanel = () => {
   const [subscribers, setSubscribers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState('success'); // success or error
+
+  // Search and Filter States
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState('newest'); // newest, oldest, a-z
 
   // Project Form State
   const [projectForm, setProjectForm] = useState({
@@ -16,6 +22,7 @@ const AdminPanel = () => {
     description: '',
     image: null,
   });
+  const [projectImagePreview, setProjectImagePreview] = useState(null);
   const [editingProject, setEditingProject] = useState(null);
 
   // Client Form State
@@ -25,6 +32,7 @@ const AdminPanel = () => {
     testimonial: '',
     photo: null,
   });
+  const [clientPhotoPreview, setClientPhotoPreview] = useState(null);
   const [editingClient, setEditingClient] = useState(null);
 
   useEffect(() => {
@@ -110,17 +118,18 @@ const AdminPanel = () => {
 
       if (editingProject) {
         await axios.put(`http://localhost:5000/api/projects/${editingProject._id}`, projectData);
-        setMessage('Project updated successfully!');
+        showToastMessage('Project updated successfully!', 'success');
         setEditingProject(null);
       } else {
         await axios.post('http://localhost:5000/api/projects', projectData);
-        setMessage('Project added successfully!');
+        showToastMessage('Project added successfully!', 'success');
       }
 
       setProjectForm({ name: '', description: '', image: null });
+      setProjectImagePreview(null);
       fetchProjects();
     } catch (error) {
-      setMessage('Error saving project');
+      showToastMessage('Error saving project', 'error');
     } finally {
       setLoading(false);
     }
@@ -133,16 +142,17 @@ const AdminPanel = () => {
       description: project.description,
       image: null,
     });
+    setProjectImagePreview(project.image);
   };
 
   const handleDeleteProject = async (id) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
       try {
         await axios.delete(`http://localhost:5000/api/projects/${id}`);
-        setMessage('Project deleted successfully!');
+        showToastMessage('Project deleted successfully!', 'success');
         fetchProjects();
       } catch (error) {
-        setMessage('Error deleting project');
+        showToastMessage('Error deleting project', 'error');
       }
     }
   };
@@ -171,17 +181,18 @@ const AdminPanel = () => {
 
       if (editingClient) {
         await axios.put(`http://localhost:5000/api/clients/${editingClient._id}`, clientData);
-        setMessage('Client updated successfully!');
+        showToastMessage('Client updated successfully!', 'success');
         setEditingClient(null);
       } else {
         await axios.post('http://localhost:5000/api/clients', clientData);
-        setMessage('Client added successfully!');
+        showToastMessage('Client added successfully!', 'success');
       }
 
       setClientForm({ name: '', designation: '', testimonial: '', photo: null });
+      setClientPhotoPreview(null);
       fetchClients();
     } catch (error) {
-      setMessage('Error saving client');
+      showToastMessage('Error saving client', 'error');
     } finally {
       setLoading(false);
     }
@@ -195,16 +206,17 @@ const AdminPanel = () => {
       testimonial: client.testimonial,
       photo: null,
     });
+    setClientPhotoPreview(client.photo);
   };
 
   const handleDeleteClient = async (id) => {
     if (window.confirm('Are you sure you want to delete this client?')) {
       try {
         await axios.delete(`http://localhost:5000/api/clients/${id}`);
-        setMessage('Client deleted successfully!');
+        showToastMessage('Client deleted successfully!', 'success');
         fetchClients();
       } catch (error) {
-        setMessage('Error deleting client');
+        showToastMessage('Error deleting client', 'error');
       }
     }
   };
@@ -214,10 +226,10 @@ const AdminPanel = () => {
     if (window.confirm('Are you sure you want to delete this contact?')) {
       try {
         await axios.delete(`http://localhost:5000/api/contact/${id}`);
-        setMessage('Contact deleted successfully!');
+        showToastMessage('Contact deleted successfully!', 'success');
         fetchContacts();
       } catch (error) {
-        setMessage('Error deleting contact');
+        showToastMessage('Error deleting contact', 'error');
       }
     }
   };
@@ -227,18 +239,62 @@ const AdminPanel = () => {
     if (window.confirm('Are you sure you want to delete this subscriber?')) {
       try {
         await axios.delete(`http://localhost:5000/api/newsletter/${id}`);
-        setMessage('Subscriber deleted successfully!');
+        showToastMessage('Subscriber deleted successfully!', 'success');
         fetchSubscribers();
       } catch (error) {
-        setMessage('Error deleting subscriber');
+        showToastMessage('Error deleting subscriber', 'error');
       }
     }
   };
 
+  // Show toast notification
+  const showToastMessage = (msg, type = 'success') => {
+    setMessage(msg);
+    setToastType(type);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  // Filter and sort projects
+  const getFilteredProjects = () => {
+    let filtered = projects.filter(project => 
+      project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    
+    if (sortOrder === 'newest') {
+      filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (sortOrder === 'oldest') {
+      filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    } else if (sortOrder === 'a-z') {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    
+    return filtered;
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">ShowcaseFlow Admin Panel</h1>
+        {/* Enhanced Header */}
+        <div className="text-center mb-10">
+          <h1 className="text-5xl font-bold mb-3 text-gray-900">
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">ShowcaseFlow</span> Admin Panel
+          </h1>
+          <p className="text-gray-600 text-lg">Manage projects, clients & subscribers effortlessly</p>
+        </div>
+
+        {/* Toast Notification */}
+        {showToast && (
+          <div className={`fixed top-4 right-4 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 z-50 ${
+            toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
+          } text-white`}>
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">{toastType === 'success' ? '✓' : '✗'}</span>
+              <span className="font-semibold">{message}</span>
+            </div>
+          </div>
+        )}
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-10 flex-wrap gap-4">
@@ -322,8 +378,12 @@ const AdminPanel = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus-outline-none focus-ring-2 focus-ring-blue-500 focus-border-transparent resize-none"
                     rows="5"
                     placeholder="Describe your project"
+                    maxLength="500"
                     required
                   ></textarea>
+                  <div className="text-sm text-gray-500 mt-1 text-right">
+                    {projectForm.description.length}/500 characters
+                  </div>
                 </div>
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">
@@ -332,19 +392,55 @@ const AdminPanel = () => {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => setProjectForm({ ...projectForm, image: e.target.files[0] })}
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      setProjectForm({ ...projectForm, image: file });
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setProjectImagePreview(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg file-mr-4 file-py-2 file-px-4 file-rounded-lg file-border-0 file-bg-blue-50 file-text-blue-700 hover-file-bg-blue-100"
                     required={!editingProject}
                   />
                   <p className="text-sm text-gray-500 mt-1">Accepted: JPG, PNG, GIF, WebP (Max 5MB)</p>
+                  
+                  {/* Image Preview */}
+                  {projectImagePreview && (
+                    <div className="mt-4 relative inline-block">
+                      <img 
+                        src={projectImagePreview} 
+                        alt="Preview" 
+                        className="w-48 h-48 object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setProjectImagePreview(null);
+                          setProjectForm({ ...projectForm, image: null });
+                        }}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover-bg-red-600"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="flex gap-4 pt-2">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="px-8 py-3 bg-blue-600 text-white rounded-lg hover-bg-blue-700 disabled-bg-gray-400 disabled-cursor-not-allowed font-semibold transition shadow-sm hover-shadow-md"
+                    className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover-from-blue-700 hover-to-blue-800 disabled-bg-gray-400 disabled-cursor-not-allowed font-semibold transition-all shadow-md hover-shadow-lg transform hover-scale-105"
                   >
-                    {loading ? '⏳ Saving...' : editingProject ? '✅ Update Project' : '✅ Add Project'}
+                    {loading ? (
+                      <span className="flex items-center gap-2">
+                        <div className="spinner-small"></div>
+                        Saving...
+                      </span>
+                    ) : editingProject ? '✅ Update Project' : '✅ Add Project'}
                   </button>
                   {editingProject && (
                     <button
@@ -352,8 +448,9 @@ const AdminPanel = () => {
                       onClick={() => {
                         setEditingProject(null);
                         setProjectForm({ name: '', description: '', image: null });
+                        setProjectImagePreview(null);
                       }}
-                      className="px-8 py-3 bg-gray-500 text-white rounded-lg hover-bg-gray-600 font-semibold transition shadow-sm hover-shadow-md"
+                      className="px-8 py-3 bg-gray-500 text-white rounded-lg hover-bg-gray-600 font-semibold transition-all shadow-sm hover-shadow-md"
                     >
                       ❌ Cancel
                     </button>
@@ -363,19 +460,44 @@ const AdminPanel = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold mb-6">All Projects</h2>
+              <div className="flex flex-col md-flex-row justify-between items-start md-items-center gap-4 mb-6">
+                <h2 className="text-2xl font-bold">All Projects ({projects.length})</h2>
+                
+                {/* Search and Filter */}
+                <div className="flex flex-col md-flex-row gap-3 w-full md-w-auto">
+                  <input
+                    type="text"
+                    placeholder="🔍 Search projects..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus-outline-none focus-ring-2 focus-ring-blue-500 w-full md-w-64"
+                  />
+                  <select
+                    value={sortOrder}
+                    onChange={(e) => setSortOrder(e.target.value)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus-outline-none focus-ring-2 focus-ring-blue-500 bg-white"
+                  >
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="a-z">A-Z</option>
+                  </select>
+                </div>
+              </div>
+
               {loading ? (
                 <div className="text-center py-8">
                   <div className="spinner"></div>
                   <p className="mt-4 text-gray-600">Loading projects...</p>
                 </div>
-              ) : projects.length === 0 ? (
+              ) : getFilteredProjects().length === 0 ? (
                 <div className="text-center py-12 bg-gray-50 rounded-lg">
-                  <p className="text-gray-500 text-lg">No projects yet. Add your first project above!</p>
+                  <p className="text-gray-500 text-lg">
+                    {searchQuery ? 'No projects found matching your search.' : 'No projects yet. Add your first project above!'}
+                  </p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-6">
-                  {projects.map((project) => (
+                  {getFilteredProjects().map((project) => (
                     <div key={project._id} className="border border-gray-200 rounded-lg p-5 shadow-sm hover-shadow-md transition flex flex-col">
                       {project.image && (
                         <div className="mb-4 overflow-hidden rounded-lg bg-gray-100">
