@@ -19,9 +19,9 @@ function App() {
         <div className="max-w-6xl mx-auto">
           <p className="mb-2">© 2025 ShowcaseFlow. All rights reserved.</p>
           <div className="flex justify-center space-x-6 mt-4">
-            <a href="#" className="hover:text-blue-400 transition">Privacy Policy</a>
-            <a href="#" className="hover:text-blue-400 transition">Terms of Service</a>
-            <a href="#" className="hover:text-blue-400 transition">Contact</a>
+            <button className="hover:text-blue-400 transition">Privacy Policy</button>
+            <button className="hover:text-blue-400 transition">Terms of Service</button>
+            <button className="hover:text-blue-400 transition">Contact</button>
           </div>
         </div>
       </footer>
