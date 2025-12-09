@@ -51,31 +51,44 @@ const Clients = () => {
   }
 
   return (
-    <section className="py-16 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-4">Happy Clients</h2>
-        <p className="text-gray-600 text-center mb-12">What our clients say about us</p>
+    <section className="py-20 px-4 bg-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Happy Clients
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            Hear what our valued clients have to say about their experience with us
+          </p>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {clients.length === 0 ? (
-            <div className="col-span-full text-center py-12">
-              <p className="text-gray-500 text-lg">No client testimonials available yet.</p>
+            <div className="col-span-full text-center py-20 bg-gray-50 rounded-2xl">
+              <div className="text-6xl mb-4">💬</div>
+              <p className="text-gray-500 text-xl font-medium">No client testimonials available yet.</p>
+              <p className="text-gray-400 mt-2">Stay tuned for amazing feedback!</p>
             </div>
           ) : (
             clients.map((client) => (
               <div 
                 key={client._id} 
-                className="bg-gray-50 rounded-lg p-6 shadow-md hover:shadow-xl transition duration-300"
+                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group"
               >
-                <div className="flex items-center mb-4">
-                  <img 
-                    src={client.photo} 
-                    alt={client.name}
-                    className="w-16 h-16 rounded-full object-cover mr-4"
-                  />
-                  <div>
-                    <h3 className="font-semibold text-lg">{client.name}</h3>
-                    <p className="text-gray-600 text-sm">{client.designation}</p>
+                {/* Client Info */}
+                <div className="flex items-center mb-6">
+                  <div className="relative">
+                    <img 
+                      src={client.photo} 
+                      alt={client.name}
+                      className="w-20 h-20 rounded-full object-cover ring-4 ring-purple-100 group-hover:ring-purple-200 transition-all"
+                    />
+                    <div className="absolute -bottom-1 -right-1 bg-green-500 w-6 h-6 rounded-full border-4 border-white"></div>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="font-bold text-xl text-gray-800">{client.name}</h3>
+                    <p className="text-purple-600 font-medium text-sm">{client.designation}</p>
                   </div>
                 </div>
                 <p className="text-gray-700 italic">"{client.testimonial}"</p>
