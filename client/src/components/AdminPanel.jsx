@@ -250,7 +250,7 @@ const AdminPanel = () => {
                 : 'bg-white text-gray-700 hover-bg-gray-100 border border-gray-200'
             }`}
           >
-            📁 Projects
+            Projects
           </button>
           <button
             onClick={() => setActiveTab('clients')}
@@ -260,7 +260,7 @@ const AdminPanel = () => {
                 : 'bg-white text-gray-700 hover-bg-gray-100 border border-gray-200'
             }`}
           >
-            👥 Clients
+            Clients
           </button>
           <button
             onClick={() => setActiveTab('contacts')}
@@ -270,7 +270,7 @@ const AdminPanel = () => {
                 : 'bg-white text-gray-700 hover-bg-gray-100 border border-gray-200'
             }`}
           >
-            📧 Contacts
+            Contacts
           </button>
           <button
             onClick={() => setActiveTab('subscribers')}
@@ -280,7 +280,7 @@ const AdminPanel = () => {
                 : 'bg-white text-gray-700 hover-bg-gray-100 border border-gray-200'
             }`}
           >
-            📬 Subscribers
+            Subscribers
           </button>
         </div>
 
