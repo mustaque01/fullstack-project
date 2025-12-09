@@ -294,47 +294,57 @@ const AdminPanel = () => {
         {/* Projects Tab */}
         {activeTab === 'projects' && (
           <div>
-            <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-bold mb-4">
-                {editingProject ? 'Edit Project' : 'Add New Project'}
+            <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+              <h2 className="text-2xl font-bold mb-6 text-gray-800">
+                {editingProject ? '✏️ Edit Project' : '➕ Add New Project'}
               </h2>
-              <form onSubmit={handleProjectSubmit}>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Project Name</label>
+              <form onSubmit={handleProjectSubmit} className="space-y-5">
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Project Name <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     value={projectForm.name}
                     onChange={(e) => setProjectForm({ ...projectForm, name: e.target.value })}
-                    className="w-full px-4 py-2 border rounded-lg focus-outline-none focus-ring-2 focus-ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus-outline-none focus-ring-2 focus-ring-blue-500 focus-border-transparent"
+                    placeholder="Enter project name"
                     required
                   />
                 </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Description</label>
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Description <span className="text-red-500">*</span>
+                  </label>
                   <textarea
                     value={projectForm.description}
                     onChange={(e) => setProjectForm({ ...projectForm, description: e.target.value })}
-                    className="w-full px-4 py-2 border rounded-lg focus-outline-none focus-ring-2 focus-ring-blue-500"
-                    rows="4"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus-outline-none focus-ring-2 focus-ring-blue-500 focus-border-transparent resize-none"
+                    rows="5"
+                    placeholder="Describe your project"
                     required
                   ></textarea>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Project Image</label>
+                <div>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Project Image {!editingProject && <span className="text-red-500">*</span>}
+                  </label>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => setProjectForm({ ...projectForm, image: e.target.files[0] })}
-                    className="w-full px-4 py-2 border rounded-lg"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg file-mr-4 file-py-2 file-px-4 file-rounded-lg file-border-0 file-bg-blue-50 file-text-blue-700 hover-file-bg-blue-100"
+                    required={!editingProject}
                   />
+                  <p className="text-sm text-gray-500 mt-1">Accepted: JPG, PNG, GIF, WebP (Max 5MB)</p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 pt-2">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover-bg-blue-700 disabled-bg-gray-400"
+                    className="px-8 py-3 bg-blue-600 text-white rounded-lg hover-bg-blue-700 disabled-bg-gray-400 disabled-cursor-not-allowed font-semibold transition shadow-sm hover-shadow-md"
                   >
-                    {loading ? 'Saving...' : editingProject ? 'Update Project' : 'Add Project'}
+                    {loading ? '⏳ Saving...' : editingProject ? '✅ Update Project' : '✅ Add Project'}
                   </button>
                   {editingProject && (
                     <button
@@ -343,9 +353,9 @@ const AdminPanel = () => {
                         setEditingProject(null);
                         setProjectForm({ name: '', description: '', image: null });
                       }}
-                      className="px-6 py-3 bg-gray-500 text-white rounded-lg hover-bg-gray-600"
+                      className="px-8 py-3 bg-gray-500 text-white rounded-lg hover-bg-gray-600 font-semibold transition shadow-sm hover-shadow-md"
                     >
-                      Cancel
+                      ❌ Cancel
                     </button>
                   )}
                 </div>
@@ -353,32 +363,41 @@ const AdminPanel = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold mb-4">All Projects</h2>
+              <h2 className="text-2xl font-bold mb-6">All Projects</h2>
               {loading ? (
-                <p>Loading...</p>
+                <div className="text-center py-8">
+                  <div className="spinner"></div>
+                  <p className="mt-4 text-gray-600">Loading projects...</p>
+                </div>
+              ) : projects.length === 0 ? (
+                <div className="text-center py-12 bg-gray-50 rounded-lg">
+                  <p className="text-gray-500 text-lg">No projects yet. Add your first project above!</p>
+                </div>
               ) : (
                 <div className="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-6">
                   {projects.map((project) => (
-                    <div key={project._id} className="border rounded-lg p-4">
+                    <div key={project._id} className="border border-gray-200 rounded-lg p-5 shadow-sm hover-shadow-md transition flex flex-col">
                       {project.image && (
-                        <img
-                          src={project.image}
-                          alt={project.name}
-                          className="w-full h-48 object-cover rounded-lg mb-4"
-                        />
+                        <div className="mb-4 overflow-hidden rounded-lg bg-gray-100">
+                          <img
+                            src={project.image}
+                            alt={project.name}
+                            className="w-full h-48 object-cover"
+                          />
+                        </div>
                       )}
-                      <h3 className="text-xl font-bold mb-2">{project.name}</h3>
-                      <p className="text-gray-600 mb-4">{project.description}</p>
-                      <div className="flex gap-2">
+                      <h3 className="text-xl font-bold mb-2 text-gray-800">{project.name}</h3>
+                      <p className="text-gray-600 mb-4 flex-grow line-clamp-3">{project.description}</p>
+                      <div className="flex gap-3 mt-auto">
                         <button
                           onClick={() => handleEditProject(project)}
-                          className="px-4 py-2 bg-yellow-500 text-white rounded hover-bg-yellow-600"
+                          className="flex-1 px-4 py-2 bg-yellow-500 text-white rounded-lg hover-bg-yellow-600 font-semibold transition"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => handleDeleteProject(project._id)}
-                          className="px-4 py-2 bg-red-500 text-white rounded hover-bg-red-600"
+                          className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover-bg-red-600 font-semibold transition"
                         >
                           Delete
                         </button>
