@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
 import Clients from './components/Clients';
@@ -12,11 +13,22 @@ import AdminPanel from './components/AdminPanel';
 function LandingPage() {
   return (
     <>
-      <Hero />
-      <Projects />
-      <Clients />
-      <ContactForm />
-      <Newsletter />
+      <Header />
+      <div className="pt-16"> {/* Padding for fixed header */}
+        <div id="hero">
+          <Hero />
+        </div>
+        <div id="projects">
+          <Projects />
+        </div>
+        <div id="clients">
+          <Clients />
+        </div>
+        <div id="contact">
+          <ContactForm />
+          <Newsletter />
+        </div>
+      </div>
       
       <footer className="bg-gray-900 text-white py-8 px-4 text-center">
         <div className="max-w-6xl mx-auto">
