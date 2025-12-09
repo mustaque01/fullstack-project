@@ -13,12 +13,12 @@ A modern full-stack web application for managing and showcasing projects, client
 **🚀 Application is Live!**
 
 - **Frontend:** [https://fullstackproject-gules.vercel.app/](https://fullstackproject-gules.vercel.app/)
-- <img width="1920" height="1080" alt="Screenshot 2025-12-10 013104" src="https://github.com/user-attachments/assets/46f6d0c3-e1fc-46eb-9f16-45f517f31b7b" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-10 013104" src="https://github.com/user-attachments/assets/46f6d0c3-e1fc-46eb-9f16-45f517f31b7b" />
 
 <img width="1920" height="1080" alt="Screenshot 2025-12-10 013117" src="https://github.com/user-attachments/assets/730eb7b7-0b85-4781-a0d7-304dded6c857" />
 
 - **Admin Panel:** [https://fullstackproject-gules.vercel.app/admin](https://fullstackproject-gules.vercel.app/admin)
-- <img width="1920" height="1080" alt="Screenshot 2025-12-10 013125" src="https://github.com/user-attachments/assets/e3b14389-c0e1-40bc-9a2b-92c04435fb1e" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-10 013125" src="https://github.com/user-attachments/assets/e3b14389-c0e1-40bc-9a2b-92c04435fb1e" />
 
 - **Backend API:** [https://fullstack-project-backend-5i7o.onrender.com/](https://fullstack-project-backend-5i7o.onrender.com/)
 
