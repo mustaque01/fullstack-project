@@ -575,9 +575,40 @@ const AdminPanel = () => {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => setClientForm({ ...clientForm, photo: e.target.files[0] })}
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      setClientForm({ ...clientForm, photo: file });
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setClientPhotoPreview(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
                     className="w-full px-4 py-2 border rounded-lg"
                   />
+                  
+                  {/* Photo Preview */}
+                  {clientPhotoPreview && (
+                    <div className="mt-4 relative inline-block">
+                      <img 
+                        src={clientPhotoPreview} 
+                        alt="Preview" 
+                        className="w-32 h-32 object-cover rounded-full border-2 border-gray-200 shadow-sm"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setClientPhotoPreview(null);
+                          setClientForm({ ...clientForm, photo: null });
+                        }}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover-bg-red-600"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="flex gap-4">
                   <button
@@ -593,6 +624,7 @@ const AdminPanel = () => {
                       onClick={() => {
                         setEditingClient(null);
                         setClientForm({ name: '', designation: '', testimonial: '', photo: null });
+                        setClientPhotoPreview(null);
                       }}
                       className="px-6 py-3 bg-gray-500 text-white rounded-lg hover-bg-gray-600"
                     >
