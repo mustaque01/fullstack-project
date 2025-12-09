@@ -241,46 +241,46 @@ const AdminPanel = () => {
         <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">ShowcaseFlow Admin Panel</h1>
 
         {/* Tab Navigation */}
-        <div className="flex justify-center mb-8 flex-wrap gap-2">
+        <div className="flex justify-center mb-10 flex-wrap gap-4">
           <button
             onClick={() => setActiveTab('projects')}
-            className={`px-6 py-3 rounded-lg font-semibold transition ${
+            className={`px-8 py-3 rounded-lg font-semibold transition-all shadow-sm ${
               activeTab === 'projects'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-700 hover-bg-gray-200'
+                ? 'bg-blue-600 text-white shadow-md transform scale-105'
+                : 'bg-white text-gray-700 hover-bg-gray-100 border border-gray-200'
             }`}
           >
-            Projects
+            📁 Projects
           </button>
           <button
             onClick={() => setActiveTab('clients')}
-            className={`px-6 py-3 rounded-lg font-semibold transition ${
+            className={`px-8 py-3 rounded-lg font-semibold transition-all shadow-sm ${
               activeTab === 'clients'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-700 hover-bg-gray-200'
+                ? 'bg-blue-600 text-white shadow-md transform scale-105'
+                : 'bg-white text-gray-700 hover-bg-gray-100 border border-gray-200'
             }`}
           >
-            Clients
+            👥 Clients
           </button>
           <button
             onClick={() => setActiveTab('contacts')}
-            className={`px-6 py-3 rounded-lg font-semibold transition ${
+            className={`px-8 py-3 rounded-lg font-semibold transition-all shadow-sm ${
               activeTab === 'contacts'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-700 hover-bg-gray-200'
+                ? 'bg-blue-600 text-white shadow-md transform scale-105'
+                : 'bg-white text-gray-700 hover-bg-gray-100 border border-gray-200'
             }`}
           >
-            Contacts
+            📧 Contacts
           </button>
           <button
             onClick={() => setActiveTab('subscribers')}
-            className={`px-6 py-3 rounded-lg font-semibold transition ${
+            className={`px-8 py-3 rounded-lg font-semibold transition-all shadow-sm ${
               activeTab === 'subscribers'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-700 hover-bg-gray-200'
+                ? 'bg-blue-600 text-white shadow-md transform scale-105'
+                : 'bg-white text-gray-700 hover-bg-gray-100 border border-gray-200'
             }`}
           >
-            Subscribers
+            📬 Subscribers
           </button>
         </div>
 
