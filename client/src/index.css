@@ -18,6 +18,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+/* Navigation Link Utilities */
+.navLink {
+  color: #374151;
+  font-size: 1.125rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: #2563eb;
+}
+
+.mobileLink {
+  color: #374151;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-align: left;
+  transition: color 0.3s ease;
+}
+
+.mobileLink:hover {
+  color: #2563eb;
+}
+
 /* Utility classes */
 .container {
   max-width: 1200px;
