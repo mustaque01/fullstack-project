@@ -39,9 +39,10 @@ const AdminPanel = () => {
     try {
       setLoading(true);
       const response = await axios.get('http://localhost:5000/api/projects');
-      setProjects(response.data);
+      setProjects(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       setMessage('Error fetching projects');
+      setProjects([]);
     } finally {
       setLoading(false);
     }
@@ -51,9 +52,10 @@ const AdminPanel = () => {
     try {
       setLoading(true);
       const response = await axios.get('http://localhost:5000/api/clients');
-      setClients(response.data);
+      setClients(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       setMessage('Error fetching clients');
+      setClients([]);
     } finally {
       setLoading(false);
     }
@@ -63,9 +65,10 @@ const AdminPanel = () => {
     try {
       setLoading(true);
       const response = await axios.get('http://localhost:5000/api/contact');
-      setContacts(response.data);
+      setContacts(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       setMessage('Error fetching contacts');
+      setContacts([]);
     } finally {
       setLoading(false);
     }
@@ -75,9 +78,10 @@ const AdminPanel = () => {
     try {
       setLoading(true);
       const response = await axios.get('http://localhost:5000/api/newsletter');
-      setSubscribers(response.data);
+      setSubscribers(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       setMessage('Error fetching subscribers');
+      setSubscribers([]);
     } finally {
       setLoading(false);
     }
