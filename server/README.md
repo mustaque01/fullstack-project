@@ -622,40 +622,18 @@ mongod --version
 sudo systemctl start mongod
 ```
 
-### Port Already in Use
-```bash
-# Windows
-netstat -ano | findstr :5000
-taskkill /PID <PID> /F
-
-# Linux/Mac
-lsof -i :5000
-kill -9 <PID>
-```
 
 ### File Upload Not Working
 - Check `uploads/` directory exists
 - Verify file size < 5MB
 - Ensure correct file format
 
-## 🤝 Contributing
-
-1. Create feature branch
-2. Follow MVC pattern
-3. Add JSDoc comments
-4. Test all endpoints
-5. Update API documentation
-6. Submit pull request
 
 ## 📄 License
 
 MIT License - See LICENSE file
 
-## 👨‍💻 Author
-
 **MD MUSTAK**
 - GitHub: [@mustaque01](https://github.com/mustaque01)
 
 ---
-
-Built with ❤️ using Node.js, Express, and MongoDB

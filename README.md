@@ -263,14 +263,3 @@ This project is open source and available under the [MIT License](LICENSE).
 **MD MUSTAK**
 
 - GitHub: [@mustaque01](https://github.com/mustaque01)
-
-## 🙏 Acknowledgments
-
-- React team for the amazing framework
-- MongoDB for the flexible database
-- Tailwind CSS for the utility-first CSS framework
-- The open-source community
-
----
-
-Made with ❤️ by MD MUSTAK
