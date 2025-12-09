@@ -91,11 +91,21 @@ const Clients = () => {
                     <p className="text-purple-600 font-medium text-sm">{client.designation}</p>
                   </div>
                 </div>
-                <p className="text-gray-700 italic">"{client.testimonial}"</p>
-                <div className="mt-4 flex text-yellow-400">
+                
+                {/* Testimonial Text */}
+                <div className="relative">
+                  <div className="text-6xl text-purple-200 absolute -top-4 -left-2 opacity-50">"</div>
+                  <p className="text-gray-700 leading-relaxed italic relative z-10 pl-6">
+                    {client.testimonial}
+                  </p>
+                </div>
+                
+                {/* Rating Stars */}
+                <div className="mt-6 flex gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                    <svg key={i} className="w-6 h-6 fill-current text-yellow-400" viewBox="0 0 20 20">
                       <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                    </svg>
                     </svg>
                   ))}
                 </div>
