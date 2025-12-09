@@ -7,6 +7,24 @@ A robust RESTful API server for managing projects, clients, contacts, and newsle
 ![MongoDB](https://img.shields.io/badge/MongoDB-9.0.1-47a248?logo=mongodb)
 ![Mongoose](https://img.shields.io/badge/Mongoose-9.0.1-880000)
 
+## 🌐 Live API
+
+**Backend API is Live!**
+- **Base URL:** [https://fullstack-project-backend-5i7o.onrender.com/](https://fullstack-project-backend-5i7o.onrender.com/)
+- **API Endpoints:** `https://fullstack-project-backend-5i7o.onrender.com/api/`
+
+> **Note:** Hosted on Render free tier. First request may take 30-60 seconds to wake up from sleep mode.
+
+### Quick API Test
+
+```bash
+# Get all projects
+curl https://fullstack-project-backend-5i7o.onrender.com/api/projects
+
+# Get all clients
+curl https://fullstack-project-backend-5i7o.onrender.com/api/clients
+```
+
 ## 🎯 Overview
 
 This is the backend API server for ShowcaseFlow, built with Node.js, Express, and MongoDB. It follows the MVC (Model-View-Controller) architecture pattern and provides a complete RESTful API for managing portfolio content.

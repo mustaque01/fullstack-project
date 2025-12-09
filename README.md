@@ -8,6 +8,16 @@ A modern full-stack web application for managing and showcasing projects, client
 ![MongoDB](https://img.shields.io/badge/MongoDB-9.0.1-47a248?logo=mongodb)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.17-38bdf8?logo=tailwind-css)
 
+## 🌐 Live Demo
+
+**🚀 Application is Live!**
+
+- **Frontend:** [https://fullstackproject-gules.vercel.app/](https://fullstackproject-gules.vercel.app/)
+- **Admin Panel:** [https://fullstackproject-gules.vercel.app/admin](https://fullstackproject-gules.vercel.app/admin)
+- **Backend API:** [https://fullstack-project-backend-5i7o.onrender.com/](https://fullstack-project-backend-5i7o.onrender.com/)
+
+> **Note:** Backend hosted on Render free tier - first request may take 30-60 seconds to wake up from sleep mode.
+
 ## 📋 Table of Contents
 
 - [Features](#features)

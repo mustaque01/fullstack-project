@@ -6,6 +6,12 @@ A modern, responsive React application for showcasing projects and managing clie
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.17-38bdf8?logo=tailwind-css)
 ![React Router](https://img.shields.io/badge/React_Router-7.10.1-CA4245?logo=react-router)
 
+## 🌐 Live Demo
+
+**Frontend is Live!**
+- **Website:** [https://fullstackproject-gules.vercel.app/](https://fullstackproject-gules.vercel.app/)
+- **Admin Panel:** [https://fullstackproject-gules.vercel.app/admin](https://fullstackproject-gules.vercel.app/admin)
+
 ## 🎯 Overview
 
 This is the frontend application for ShowcaseFlow, built with React and styled with Tailwind CSS. It features a public-facing portfolio website and a comprehensive admin panel for content management.
